@@ -2,7 +2,7 @@
 var userInput = $("#userInput");
 var srchBtn = $("#srchBtn");
 var APIKey = "6d7bc9f4afbf01277e0e2187714f7bc1";
-
+var fiveAPIKey = "3a59cab114cc2eada240a25fba948ae5";
 var display = $("#display");
 var city;
 var cityList = []
@@ -10,7 +10,7 @@ var cityList = []
 function getURL(city) {
 
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-    // console.log(queryURL);
+
     fetch(queryURL)
         .then(function (response) {
             return response.json();
@@ -25,7 +25,7 @@ function getURL(city) {
             cityDisplay.text(data.name);
             display.append(cityDisplay);
 
-            temp.text("Temp: " + data.main.temp + " K");
+            temp.text("Temp: " + Math.round((data.main.temp-273.15)*9/5+32) + " °F");
             display.append(temp);
 
             wind.text("Wind: " + data.wind.speed + " MPH");
@@ -34,19 +34,19 @@ function getURL(city) {
             humidity.text("Humidity: " + data.main.humidity+ "%");
             display.append(humidity);
 
-            // var articleEl = $("<article class='p-10'>");
-            // var titleEl = $("<h2>");
-            // var pEl = $("<p>");
-            // var descriptionEl = $("<p>");
-            // var moreBtn = $("<button>");
+        })
+}
 
-            // titleEl.text(data.results[i].title);
-            // articleEl.append(titleEl);
-
-            // descriptionEl.text(data.results[i].description[0]);
-            // articleEl.append(descriptionEl);
-
-            // mainEl.append(articleEl);
+function get5Forecast(city) {
+    var forecastURL = "api.openweathermap.org/data/2.5/forecast?lat=44.98&lon=-93.2638&appid=" + APIKey;
+    console.log(forecastURL)
+    fetch(forecastURL)
+        .then(function(response2) {
+            return response2.json();
+        })
+        .then(function(data2) {
+            console.log(data2);
+            
         })
 }
 
@@ -55,9 +55,11 @@ srchBtn.on("click", function (event) {
     event.preventDefault();
     var city = userInput.val();
     // console.log(city);
+
     cityList.push(city);
     localStorage.setItem("City Name", JSON.stringify(cityList));
     getURL(city);
+    get5Forecast(city);
 
 });
 
