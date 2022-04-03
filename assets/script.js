@@ -6,11 +6,12 @@ var display = $("#display");
 var searchList = document.querySelector("#search-list");
 var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
-
+var uv = $("#uv");
+var para = $("#para");
 var city;
 var cityList = [];
 
-
+// function to fetch today's weather for a city
 function getWeather(city) {
 
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
@@ -20,7 +21,7 @@ function getWeather(city) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            
             var cityDisplay = $("#city");
             var temp = $("#temp");
             var wind = $("#wind");
@@ -48,21 +49,37 @@ function getWeather(city) {
                 return response.json();
             })
             .then(function (data2) {
-                console.log(data2);
-                var uv = $("#uv");
-                uv.text("UV Index: " + data2.current.uvi)
+
+                para.text(" " + data2.current.uvi)
                 display.append(uv);
+                var color = data2.current.uvi;
+                
+                if (0 <= color <3){
+                    document.getElementById("para").style.backgroundColor = "green";
+                }
+                else if(3 <= color <6){
+                    document.getElementById("para").style.backgroundColor = "yellow";
+                }
+                else if (6 <= color <8){
+                    document.getElementById("para").style.backgroundColor = "orange";
+                }
+                else if (8 <= color < 11){
+                    $("#para").css("background-color", "orange");
+                }
+                else if (11 <= color){
+                    $("#para").css("background-color", "orange");
+                }
             })
-            
+
         })
      
 }
 
 
-
+// Function to get 5 day forecast for a city
 function get5Forecast(city) {
     var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
-    // console.log(forecastURL)
+
     fetch(forecastURL)
         .then(function(response2) {
             return response2.json();
@@ -127,7 +144,7 @@ function get5Forecast(city) {
         });
 }
 
-
+// Function that fetches weather information from past searches
 function renderCities(){
     searchList.innerHTML = "";
 
@@ -141,10 +158,12 @@ function renderCities(){
         searchList.appendChild(li);
     }
     searchList.addEventListener("click", function(event){
+        event.preventDefault();
         var element= event.target;
         if(element.matches("button") === true){
             city = element.textContent;
-            // userInput.text = element.textContent;
+        
+ 
             getWeather(city);
             get5Forecast(city);
             
@@ -153,6 +172,7 @@ function renderCities(){
     });
 }
 
+// Function to save searched cities and display them
 function getCities(){
     var cities = JSON.parse(localStorage.getItem("City Name"));
   
@@ -165,12 +185,10 @@ function getCities(){
 srchBtn.on("click", function (event) {
     event.preventDefault();
     var city = userInput.val();
-    // console.log(city);
 
     cityList.push(city);
     localStorage.setItem("City Name", JSON.stringify(cityList));
     getCities();
-    // getUV(city);
     getWeather(city);
     get5Forecast(city);
 

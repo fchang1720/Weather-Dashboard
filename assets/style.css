@@ -32,6 +32,13 @@ header {
     margin-top: 10px;
 }
 
+.display #uv{
+    display: flex;
+}
+.display #uv #para{
+    width: 60px;
+    padding-left: 10px;
+}
 .forecast-header h3 {
     font-weight: bolder;
 }
