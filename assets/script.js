@@ -21,15 +21,16 @@ function getWeather(city) {
             return response.json();
         })
         .then(function (data) {
-            
+            console.log(data);
             var cityDisplay = $("#city");
             var temp = $("#temp");
             var wind = $("#wind");
             var humidity = $("#humidity");
+            var disCon = data.weather[0].icon;
 
             cityDisplay.text(data.name +" "+ date);
             display.append(cityDisplay);
-
+            display.append($("#icon1").html("<img src='http://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
             temp.text("Temp: " + Math.round((data.main.temp-273.15)*9/5+32) + " °F");
             display.append(temp);
 
@@ -39,6 +40,7 @@ function getWeather(city) {
             humidity.text("Humidity: " + data.main.humidity+ "%");
             display.append(humidity);
 
+            
             var lat = data.coord.lat;
             var lon = data.coord.lon;
 
