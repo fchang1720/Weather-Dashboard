@@ -64,10 +64,10 @@ function getWeather(city) {
                     document.getElementById("para").style.backgroundColor = "orange";
                 }
                 else if (8 <= color < 11){
-                    $("#para").css("background-color", "orange");
+                    document.getElementById("para").style.backgroundColor = "red";
                 }
                 else if (11 <= color){
-                    $("#para").css("background-color", "orange");
+                    document.getElementById("para").style.backgroundColor = "purple";
                 }
             })
 
