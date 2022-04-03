@@ -2,16 +2,14 @@
 var userInput = $("#userInput");
 var srchBtn = $("#srchBtn");
 var APIKey = "6d7bc9f4afbf01277e0e2187714f7bc1";
-var fiveAPIKey = "3a59cab114cc2eada240a25fba948ae5";
 var display = $("#display");
-var forecast = document.querySelector("#forecast");
 var searchList = document.querySelector("#search-list");
 var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 
 var city;
 var cityList = [];
-var castList = [];
+
 
 function getWeather(city) {
 
@@ -22,7 +20,7 @@ function getWeather(city) {
             return response.json();
         })
         .then(function (data) {
-            
+            console.log(data);
             var cityDisplay = $("#city");
             var temp = $("#temp");
             var wind = $("#wind");
@@ -40,46 +38,95 @@ function getWeather(city) {
             humidity.text("Humidity: " + data.main.humidity+ "%");
             display.append(humidity);
 
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+
+            uvURL = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon +"&exclude=minutely,hourly,alerts" +"&appid=" + APIKey + "&units=imperial";
+
+            fetch(uvURL)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function (data2) {
+                console.log(data2);
+                var uv = $("#uv");
+                uv.text("UV Index: " + data2.current.uvi)
+                display.append(uv);
+            })
+            
         })
      
 }
-// function getUV(city) {
-//     var uURL = "https://api.openweathermap.org/data/2.5/onecall?q=" + city + "&appid=" + APIKey;
-//     console.log(uURL);
-// }
+
+
 
 function get5Forecast(city) {
     var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
-    console.log(forecastURL)
+    // console.log(forecastURL)
     fetch(forecastURL)
         .then(function(response2) {
             return response2.json();
         })
         .then(function(response2) {
-            console.log(response2.list[0]);
-            forecast.innerHTML = "";
-            for( let i=0; i<10; i+=2){
-            var castContent = castList[i];
-                
-                var title = document.createElement("div");
-                var body = document.createElement("div");
-                var fTemp = document.createElement("h6");
-                fTemp.textContent = response2.list[i].main.temp;
 
-                // fTemp.text("Temp: " + data.list[0].main.temp);
-                // console.log(fTemp);
-            //     foreC.appendTo(fTemp);
+            var fDate1 = document.getElementById("fDate1");
+            var fDate2 = document.getElementById("fDate2");
+            var fDate3 = document.getElementById("fDate3");
+            var fDate4 = document.getElementById("fDate4");
+            var fDate5 = document.getElementById("fDate5");
+            fDate1.textContent = (today.getMonth()+1)+'/'+(today.getDate()+1)+'/'+today.getFullYear();
+            fDate2.textContent = (today.getMonth()+1)+'/'+(today.getDate()+2)+'/'+today.getFullYear();
+            fDate3.textContent = (today.getMonth()+1)+'/'+(today.getDate()+3)+'/'+today.getFullYear();
+            fDate4.textContent = (today.getMonth()+1)+'/'+(today.getDate()+4)+'/'+today.getFullYear();
+            fDate5.textContent = (today.getMonth()+1)+'/'+(today.getDate()+5)+'/'+today.getFullYear();
 
-            //     fore.appendTo(foreC);
-               
-            //     forecast.append(fore);
-            //     console.log(forecast);
-
-            }
+            var ftemp1 = document.getElementById("fTemp1");
+            var ftemp2 = document.getElementById("fTemp2");
+            var ftemp3 = document.getElementById("fTemp3");
+            var ftemp4 = document.getElementById("fTemp4");
+            var ftemp5 = document.getElementById("fTemp5");
+            ftemp1.textContent = "Temp: " + Math.round((response2.list[5].main.temp-273.15)*9/5+32) + " °F";
+            ftemp2.textContent = "Temp: " + Math.round((response2.list[13].main.temp-273.15)*9/5+32) + " °F";
+            ftemp3.textContent = "Temp: " + Math.round((response2.list[21].main.temp-273.15)*9/5+32) + " °F";
+            ftemp4.textContent = "Temp: " + Math.round((response2.list[29].main.temp-273.15)*9/5+32) + " °F";
+            ftemp5.textContent = "Temp: " + Math.round((response2.list[37].main.temp-273.15)*9/5+32) + " °F";
             
-        
+            var fWind1 = document.getElementById("fWind1");
+            var fWind2 = document.getElementById("fWind2");
+            var fWind3 = document.getElementById("fWind3");
+            var fWind4 = document.getElementById("fWind4");
+            var fWind5 = document.getElementById("fWind5");
+            fWind1.textContent = "Wind: " + response2.list[5].wind.speed + " MPH";
+            fWind2.textContent = "Wind: " + response2.list[13].wind.speed + " MPH";
+            fWind3.textContent = "Wind: " + response2.list[21].wind.speed + " MPH";
+            fWind4.textContent = "Wind: " + response2.list[29].wind.speed + " MPH";
+            fWind5.textContent = "Wind: " + response2.list[37].wind.speed + " MPH";
+
+            var humid1 = document.getElementById("fHumid1");
+            var humid2 = document.getElementById("fHumid2");
+            var humid3 = document.getElementById("fHumid3");
+            var humid4 = document.getElementById("fHumid4");
+            var humid5 = document.getElementById("fHumid5");
+            humid1.textContent = "Humidity: " + response2.list[5].main.humidity + " %";
+            humid2.textContent = "Humidity: " + response2.list[13].main.humidity + " %";
+            humid3.textContent = "Humidity: " + response2.list[21].main.humidity + " %";
+            humid4.textContent = "Humidity: " + response2.list[29].main.humidity + " %";
+            humid5.textContent = "Humidity: " + response2.list[37].main.humidity + " %";
+            
+            var iCon1 = response2.list[5].weather[0].icon
+            var iCon2 = response2.list[13].weather[0].icon;
+            var iCon3 = response2.list[21].weather[0].icon;
+            var iCon4 = response2.list[29].weather[0].icon;
+            var iCon5 = response2.list[37].weather[0].icon;
+            $("#fImage1").html("<img src='http://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage2").html("<img src='http://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage3").html("<img src='http://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage4").html("<img src='http://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage5").html("<img src='http://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
+            
         });
 }
+
 
 function renderCities(){
     searchList.innerHTML = "";
@@ -97,7 +144,10 @@ function renderCities(){
         var element= event.target;
         if(element.matches("button") === true){
             city = element.textContent;
-            getURL(city);
+            // userInput.text = element.textContent;
+            getWeather(city);
+            get5Forecast(city);
+            
         }
 
     });

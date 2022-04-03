@@ -41,3 +41,7 @@ header {
     background-color: rgb(48, 48, 56);
     color: white;
 }
+
+.forecast .fore .forn .fDate {
+    font-size: 30px;
+}
