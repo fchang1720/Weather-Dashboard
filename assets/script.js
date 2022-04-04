@@ -78,7 +78,7 @@ function getWeather(city) {
 }
 
 
-// Function to get 5 day forecast for a city
+// Function to get 5 day forecast for a city. Also display weather icon.
 function get5Forecast(city) {
     var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
 
@@ -146,7 +146,7 @@ function get5Forecast(city) {
         });
 }
 
-// Function that fetches weather information from past searches
+// Function that fetches weather information from past searches. Allows easy access to previous search results.
 function renderCities(){
     searchList.innerHTML = "";
 
@@ -165,7 +165,6 @@ function renderCities(){
         if(element.matches("button") === true){
             city = element.textContent;
         
- 
             getWeather(city);
             get5Forecast(city);
             
