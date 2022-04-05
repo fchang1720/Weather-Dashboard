@@ -15,7 +15,7 @@ var cityList = [];
 // function to fetch today's weather for a city
 function getWeather(city) {
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -31,7 +31,7 @@ function getWeather(city) {
             
             cityDisplay.text(data.name +" "+ date);
             display.append(cityDisplay);
-            display.append($("#icon1").html("<img src='https://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
+            display.append($("#icon1").html("<img src='http://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
             temp.text("Temp: " + Math.round((data.main.temp-273.15)*9/5+32) + " °F");
             display.append(temp);
 
@@ -45,7 +45,7 @@ function getWeather(city) {
             var lat = data.coord.lat;
             var lon = data.coord.lon;
 
-            uvURL = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon +"&exclude=minutely,hourly,alerts" +"&appid=" + APIKey + "&units=imperial";
+            uvURL = "http://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon +"&exclude=minutely,hourly,alerts" +"&appid=" + APIKey + "&units=imperial";
 
             fetch(uvURL)
             .then(function(response) {
@@ -85,7 +85,7 @@ function getWeather(city) {
 
 // Function to get 5 day forecast for a city. Also display weather icon.
 function get5Forecast(city) {
-    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
 
     fetch(forecastURL)
         .then(function(response2) {
@@ -142,11 +142,11 @@ function get5Forecast(city) {
             var iCon3 = response2.list[21].weather[0].icon;
             var iCon4 = response2.list[29].weather[0].icon;
             var iCon5 = response2.list[37].weather[0].icon;
-            $("#fImage1").html("<img src='https://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage2").html("<img src='https://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage3").html("<img src='https://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage4").html("<img src='https://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage5").html("<img src='https://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage1").html("<img src='http://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage2").html("<img src='http://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage3").html("<img src='http://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage4").html("<img src='http://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage5").html("<img src='http://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
             
         });
 }
