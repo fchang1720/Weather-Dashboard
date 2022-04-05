@@ -142,11 +142,11 @@ function get5Forecast(city) {
             var iCon3 = response2.list[21].weather[0].icon;
             var iCon4 = response2.list[29].weather[0].icon;
             var iCon5 = response2.list[37].weather[0].icon;
-            $("#fImage1").html("<img src='http://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage2").html("<img src='http://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage3").html("<img src='http://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage4").html("<img src='http://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage5").html("<img src='http://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage1").html("<img src='https://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage2").html("<img src='https://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage3").html("<img src='https://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage4").html("<img src='https://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage5").html("<img src='https://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
             
         });
 }
