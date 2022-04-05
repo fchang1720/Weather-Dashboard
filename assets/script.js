@@ -7,30 +7,31 @@ var searchList = document.querySelector("#search-list");
 var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 var uv = $("#uv");
-var para = $("#para");
+
+var para = document.getElementById("#para");
 var city;
 var cityList = [];
 
 // function to fetch today's weather for a city
 function getWeather(city) {
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+  
             var cityDisplay = $("#city");
             var temp = $("#temp");
             var wind = $("#wind");
             var humidity = $("#humidity");
             var disCon = data.weather[0].icon;
-
+            
             cityDisplay.text(data.name +" "+ date);
             display.append(cityDisplay);
-            display.append($("#icon1").html("<img src='http://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
+            display.append($("#icon1").html("<img src='https://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
             temp.text("Temp: " + Math.round((data.main.temp-273.15)*9/5+32) + " °F");
             display.append(temp);
 
@@ -39,7 +40,7 @@ function getWeather(city) {
             
             humidity.text("Humidity: " + data.main.humidity+ "%");
             display.append(humidity);
-
+            display.append(para);
             
             var lat = data.coord.lat;
             var lon = data.coord.lon;
@@ -51,26 +52,30 @@ function getWeather(city) {
                 return response.json();
             })
             .then(function (data2) {
-
-                para.text(" " + data2.current.uvi)
-                display.append(uv);
-                var color = data2.current.uvi;
                 
-                if (0 <= color <3){
-                    document.getElementById("para").style.backgroundColor = "green";
-                }
-                else if(3 <= color <6){
-                    document.getElementById("para").style.backgroundColor = "yellow";
-                }
-                else if (6 <= color <8){
-                    document.getElementById("para").style.backgroundColor = "orange";
-                }
-                else if (8 <= color < 11){
-                    document.getElementById("para").style.backgroundColor = "red";
-                }
-                else if (11 <= color){
-                    document.getElementById("para").style.backgroundColor = "purple";
-                }
+                uv.text("UV Index: " +data2.current.uvi) 
+                display.append(uv);
+                
+               
+                
+                
+                // if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)) {
+                    
+                //     para.setAttribute("style", "background-color: green");
+                // }
+                
+                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)) {
+                //     para.setAttribute("style", "background-color: yellow");
+                // }
+                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)){
+                //     para.setAttribute("style", "background-color: orange");
+                // }
+                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)){
+                //     para.setAttribute("style", "background-color: red");
+                // }
+                // else if (11 <= data2.current.uvi){
+                //     para.setAttribute("style", "background-color: purple");
+                // }
             })
 
         })
@@ -80,7 +85,7 @@ function getWeather(city) {
 
 // Function to get 5 day forecast for a city. Also display weather icon.
 function get5Forecast(city) {
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
 
     fetch(forecastURL)
         .then(function(response2) {
@@ -137,11 +142,11 @@ function get5Forecast(city) {
             var iCon3 = response2.list[21].weather[0].icon;
             var iCon4 = response2.list[29].weather[0].icon;
             var iCon5 = response2.list[37].weather[0].icon;
-            $("#fImage1").html("<img src='http://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage2").html("<img src='http://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage3").html("<img src='http://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage4").html("<img src='http://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
-            $("#fImage5").html("<img src='http://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage1").html("<img src='https://openweathermap.org/img/wn/" + iCon1  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage2").html("<img src='https://openweathermap.org/img/wn/" + iCon2  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage3").html("<img src='https://openweathermap.org/img/wn/" + iCon3  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage4").html("<img src='https://openweathermap.org/img/wn/" + iCon4  + "@2x.png' alt='Icon depicting current weather.'>");
+            $("#fImage5").html("<img src='https://openweathermap.org/img/wn/" + iCon5  + "@2x.png' alt='Icon depicting current weather.'>");
             
         });
 }
@@ -161,6 +166,7 @@ function renderCities(){
     }
     searchList.addEventListener("click", function(event){
         event.preventDefault();
+        
         var element= event.target;
         if(element.matches("button") === true){
             city = element.textContent;
@@ -186,7 +192,7 @@ function getCities(){
 srchBtn.on("click", function (event) {
     event.preventDefault();
     var city = userInput.val();
-
+    
     cityList.push(city);
     localStorage.setItem("City Name", JSON.stringify(cityList));
     getCities();
