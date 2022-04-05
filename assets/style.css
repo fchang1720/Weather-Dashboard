@@ -35,7 +35,7 @@ header {
 .display #uv{
     display: flex;
 }
-.display #uv #para{
+.display #para{
     width: 60px;
     padding-left: 10px;
 }

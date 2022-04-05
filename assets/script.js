@@ -8,7 +8,7 @@ var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 var uv = $("#uv");
 
-var para = document.getElementById("#para");
+var para = $("#para");
 var city;
 var cityList = [];
 
@@ -53,29 +53,29 @@ function getWeather(city) {
             })
             .then(function (data2) {
                 
-                uv.text("UV Index: " +data2.current.uvi) 
+                uv.text("UV Index: ")
+                para.text(data2.current.uvi)
                 display.append(uv);
-                
-               
-                
-                
-                // if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)) {
+                display.append(para);
+                var color = data2.current.uvi;
+                console.log(color);
+                if ((0 <= color) && (color < 3)) {
                     
-                //     para.setAttribute("style", "background-color: green");
-                // }
+                    $("#para").css("background-color", "green");
+                }
                 
-                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)) {
-                //     para.setAttribute("style", "background-color: yellow");
-                // }
-                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)){
-                //     para.setAttribute("style", "background-color: orange");
-                // }
-                // else if ((0 <= data2.current.uvi) && (data2.current.uvi < 3)){
-                //     para.setAttribute("style", "background-color: red");
-                // }
-                // else if (11 <= data2.current.uvi){
-                //     para.setAttribute("style", "background-color: purple");
-                // }
+                else if ((3 <= color) && (color < 6)) {
+                    $("#para").css("background-color", "yellow");
+                }
+                else if ((6 <= color) && (color < 8)){
+                    $("#para").css("background-color", "orange");
+                }
+                else if ((8 <= color) && (color < 11)){
+                    $("#para").css("background-color", "red");
+                }
+                else if (11 <= color){
+                    $("#para").css("background-color", "purple");
+                }
             })
 
         })
