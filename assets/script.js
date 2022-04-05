@@ -58,7 +58,7 @@ function getWeather(city) {
                 display.append(uv);
                 display.append(para);
                 var color = data2.current.uvi;
-                console.log(color);
+                
                 if ((0 <= color) && (color < 3)) {
                     
                     $("#para").css("background-color", "green");
