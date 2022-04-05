@@ -15,7 +15,7 @@ var cityList = [];
 // function to fetch today's weather for a city
 function getWeather(city) {
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
     fetch(queryURL)
         .then(function (response) {
@@ -31,7 +31,7 @@ function getWeather(city) {
             
             cityDisplay.text(data.name +" "+ date);
             display.append(cityDisplay);
-            display.append($("#icon1").html("<img src='http://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
+            display.append($("#icon1").html("<img src='https://openweathermap.org/img/wn/" + disCon  + "@2x.png' alt='Icon depicting current weather.'>"));
             temp.text("Temp: " + Math.round((data.main.temp-273.15)*9/5+32) + " °F");
             display.append(temp);
 
@@ -45,7 +45,7 @@ function getWeather(city) {
             var lat = data.coord.lat;
             var lon = data.coord.lon;
 
-            uvURL = "http://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon +"&exclude=minutely,hourly,alerts" +"&appid=" + APIKey + "&units=imperial";
+            uvURL = "https://api.openweathermap.org/data/2.5/onecall?" + "lat=" + lat + "&lon=" + lon +"&exclude=minutely,hourly,alerts" +"&appid=" + APIKey + "&units=imperial";
 
             fetch(uvURL)
             .then(function(response) {
@@ -85,7 +85,7 @@ function getWeather(city) {
 
 // Function to get 5 day forecast for a city. Also display weather icon.
 function get5Forecast(city) {
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
 
     fetch(forecastURL)
         .then(function(response2) {
