@@ -7,7 +7,7 @@ var searchList = document.querySelector("#search-list");
 var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
 var uv = $("#uv");
-
+var forecastContainer = getElementById("forecast")
 var para = $("#para");
 var city;
 var cityList = [];
@@ -81,7 +81,45 @@ function getWeather(city) {
         })
      
 }
+// function get5DayCard(forecast, timezone){
+//     var iconURL = `https://api.openweathermap.org/image/w/${forecast.weather[0].icon}.png`;
+//     var iconDescription = forecast.weather[0].description 
+//     var tempF = forecast.temp.day
+//     var {hum} = forecast
+//     var windSpeed = forecast.wind_speed
+//     var unixts = forecast.dt 
 
+//     var column = document.createElement("div");
+//     var card = document.createElement("div");
+//     var cardBody = document.createElement("div");
+//     var title = document.createElement("h4");
+//     var ikon = document.createElement("img");
+//     var tempEl = document.createElement("p");
+//     var wynd = document.createElement("p");
+//     var humidEl = document.createElement("p");
+
+//     column.append(card);
+//     card.append(cardBody);
+//     cardBody.append(title, ikon, tempEl, wynd, humidEl);
+
+//     column.setAttribute("class", "layer1");
+//     column.classList.add("5day-card");
+//     card.setAttribute("class", "layer2");
+//     title.setAttribute("class", "layer3");
+//     ikon.setAttribute("class", "layer4");
+//     tempEl.setAttribute("class", "layer5");
+//     wynd.setAttribute("class", "layer6");
+//     humidEl.setAttribute("class", "layer7");
+
+//     title.textContent = unixts.tz(timezone).format("mm/dd/yyyy")
+//     ikon.setAttribute("src", iconURL);
+//     ikon.setAttribute("alt", iconDescription)
+//     tempEl.textContent = `temp: ${tempF}`
+//     wynd.textContent = `wind: ${windSpeed}`
+//     humidEl.textContent = `humidity: ${hum}`
+//     forecastContainer.append(column);
+
+// }
 
 // Function to get 5 day forecast for a city. Also display weather icon.
 function get5Forecast(city) {
