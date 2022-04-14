@@ -192,12 +192,12 @@ function getCities(){
 srchBtn.on("click", function (event) {
     event.preventDefault();
     var city = userInput.val();
-    
+    if (!cityList.includes(city)){
     cityList.push(city);
     localStorage.setItem("City Name", JSON.stringify(cityList));
     getCities();
     getWeather(city);
     get5Forecast(city);
-
+    }
 });
 
